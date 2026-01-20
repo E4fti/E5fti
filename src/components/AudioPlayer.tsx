@@ -17,33 +17,49 @@ const AudioPlayer = () => {
       audioRef.current.muted = false;
       
       const playAudio = () => {
-        if (audioRef.current && audio.autoplay) {
-          audioRef.current.play().then(() => {
-            setIsPlaying(true);
-          }).catch((err) => {
-            console.log("Autoplay blocked:", err);
-          });
+        if (audioRef.current && audio.autoplay && !isPlaying) {
+          audioRef.current.play()
+            .then(() => {
+              setIsPlaying(true);
+            })
+            .catch((err) => {
+              console.log("Autoplay blocked:", err);
+            });
         }
       };
 
+      // Try playing immediately (might work if user already interacted with the site elsewhere)
       playAudio();
 
-      // Listen for first interaction to trigger play if blocked
+      // Mobile Chrome/Safari strictly require the .play() call to be directly 
+      // within the call stack of a user gesture event handler.
       const handleInteraction = () => {
-        playAudio();
-        window.removeEventListener('click', handleInteraction);
-        window.removeEventListener('touchstart', handleInteraction);
+        if (audioRef.current) {
+          audioRef.current.play()
+            .then(() => {
+              setIsPlaying(true);
+              // Clean up once successfully playing
+              window.removeEventListener('click', handleInteraction);
+              window.removeEventListener('touchstart', handleInteraction);
+              window.removeEventListener('pointerdown', handleInteraction);
+            })
+            .catch((err) => {
+              console.log("Interaction play blocked:", err);
+            });
+        }
       };
 
       window.addEventListener('click', handleInteraction);
       window.addEventListener('touchstart', handleInteraction);
+      window.addEventListener('pointerdown', handleInteraction);
 
       return () => {
         window.removeEventListener('click', handleInteraction);
         window.removeEventListener('touchstart', handleInteraction);
+        window.removeEventListener('pointerdown', handleInteraction);
       };
     }
-  }, [audio.autoplay, volume]);
+  }, [audio.autoplay, volume, isPlaying]);
 
   if (!audio.src) return null;
 
@@ -79,7 +95,12 @@ const AudioPlayer = () => {
       onMouseEnter={() => setShowControls(true)}
       onMouseLeave={() => setShowControls(false)}
     >
-      <audio ref={audioRef} src={audio.src} loop={audio.loop} />
+      <audio 
+        ref={audioRef} 
+        src={audio.src} 
+        loop={audio.loop} 
+        preload="auto"
+      />
       
       <div className={`flex items-center gap-2 p-2 rounded-full bg-card/80 backdrop-blur-sm border border-border transition-all duration-300 ${showControls ? 'pr-4' : ''}`}>
         {/* Play/Pause button */}
