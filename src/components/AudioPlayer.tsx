@@ -5,7 +5,7 @@ import { profileConfig } from '@/config/profileConfig';
 const AudioPlayer = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [isMuted, setIsMuted] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
   const [volume, setVolume] = useState(profileConfig.audio.defaultVolume);
   const [showControls, setShowControls] = useState(false);
 
@@ -14,6 +14,7 @@ const AudioPlayer = () => {
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.volume = volume;
+      audioRef.current.muted = isMuted;
       if (audio.autoplay) {
         audioRef.current.play().catch(() => {
           // Autoplay blocked by browser
