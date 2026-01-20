@@ -77,7 +77,7 @@ const ProfileCard = () => {
       <div 
         ref={ref}
         style={style}
-        className="relative p-8 rounded-2xl bg-card/80 backdrop-blur-sm border border-border will-change-transform"
+        className="relative p-6 sm:p-8 rounded-2xl bg-card/80 backdrop-blur-sm border border-border will-change-transform"
       >
         {/* Background gradient */}
         <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-glow-cyan/5 via-transparent to-glow-purple/5 pointer-events-none" />

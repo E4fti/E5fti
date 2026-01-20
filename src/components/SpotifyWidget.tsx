@@ -23,14 +23,15 @@ export const SpotifyWidget = () => {
       <iframe
         src={finalUrl}
         width="100%"
-        height={compact ? 100 : height}
+        height={compact ? 152 : (height < 152 ? 152 : height)}
         frameBorder="0"
         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
         loading="lazy"
-        className="rounded-xl"
+        className="rounded-xl w-full"
         style={{ 
           background: 'transparent',
-          colorScheme: 'dark'
+          colorScheme: 'dark',
+          minHeight: compact ? '152px' : `${height}px`
         }}
       />
     </div>
