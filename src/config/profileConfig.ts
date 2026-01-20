@@ -44,9 +44,9 @@ export const profileConfig = {
   background: {
     // Set to a video URL to enable video background (mp4, webm)
     // Leave empty string "" to use default gradient background
-    src: "./src/assets/ee4f$i.mp4",
+    src: "/src/assets/ee4f$i.mp4",
     // Video settings
-    videoOpacity: 1000,
+    videoOpacity: 50,
     videoBlur: 0, // in pixels
   },
 
@@ -54,7 +54,7 @@ export const profileConfig = {
   audio: {
     // Set to an audio URL to enable background music (mp3, wav, ogg)
     // Leave empty string "" to disable audio
-    src: "./src/assets/audio.mp3",
+    src: "/src/assets/audio.mp3",
     // Audio settings
     autoplay: true,
     loop: true,

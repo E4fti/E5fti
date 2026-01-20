@@ -6,7 +6,7 @@ const BackgroundEffects = () => {
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden">
       {/* Video background */}
-      {background.videoUrl && (
+      {background.src && (
         <div className="absolute inset-0 z-0">
           <video
             autoPlay
@@ -15,12 +15,11 @@ const BackgroundEffects = () => {
             playsInline
             className="absolute inset-0 w-full h-full object-cover"
             style={{
-              opacity: background.videoOpacity,
-              filter: background.videoBlur > 0 ? `blur(${background.videoBlur}px)` : 'none',
+              opacity: (background.videoOpacity ?? 100) / 100,
+              filter: (background.videoBlur ?? 0) > 0 ? `blur(${background.videoBlur}px)` : 'none',
             }}
           >
-            <source src={background.videoUrl} type="video/mp4" />
-            <source src={background.videoUrl} type="video/webm" />
+            <source src={background.src} type="video/mp4" />
           </video>
           {/* Dark overlay for readability */}
           <div className="absolute inset-0 bg-background/0" />
