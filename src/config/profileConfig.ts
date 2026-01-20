@@ -44,7 +44,7 @@ export const profileConfig = {
   background: {
     // Set to a video URL to enable video background (mp4, webm)
     // Leave empty string "" to use default gradient background
-    videoUrl: "./src/assets/ee4f$i.mp4",
+    src: "./src/assets/ee4f$i.mp4",
     // Video settings
     videoOpacity: 1000,
     videoBlur: 0, // in pixels
