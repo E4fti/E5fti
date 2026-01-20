@@ -6,8 +6,8 @@
 export const profileConfig = {
   // === BASIC INFO ===
   username: "E F T I",
-  pronouns: "He/Him",
-  bio: "Developer • Designer • Creator   \n  Building cool stuff on the internet ✨",
+  pronouns: "",
+  bio: "I Spend Every Single Moment on Work",
   status: "online" as "online" | "offline" | "away" | "dnd",
   
   // === AVATAR ===

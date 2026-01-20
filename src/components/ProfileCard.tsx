@@ -102,70 +102,64 @@ const ProfileCard = () => {
           </div>
           
           {/* Username */}
-          <h1 className="text-2xl font-bold text-gradient mb-1">
+          <h1 className="text-4xl font-bold text-neon-pink mb-4 tracking-widest">
             {username}
           </h1>
+
+          {/* Bio Tags */}
+          <div className="flex flex-wrap justify-center gap-2 mb-6 max-w-xs">
+            {bio.split(' ').map((word, i) => (
+              <span key={i} className="pill-tag">
+                {word}
+              </span>
+            ))}
+          </div>
           
-          {/* Pronouns */}
-          <span className="text-sm text-muted-foreground font-mono mb-3">
-            {pronouns}
-          </span>
-          
-          {/* Bio */}
-          <p className="text-center text-muted-foreground max-w-xs mb-6 whitespace-pre-line">
-            {bio}
-          </p>
+          {/* Social icons row */}
+          <div className="flex items-center gap-4 mb-6 flex-wrap justify-center">
+            {socialLinks.map((link, index) => {
+              const Icon = socialIconMap[link.platform];
+              return (
+                <a 
+                  key={index} 
+                  href={link.url} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-white/80 hover:text-white transition-colors"
+                >
+                  <Icon className="w-6 h-6" />
+                </a>
+              );
+            })}
+          </div>
+
+          {/* Stats Row */}
+          <div className="flex items-center gap-6 mb-8 text-sm text-white/70">
+            <div className="flex items-center gap-1.5">
+              <span className="opacity-50">👁</span>
+              <span>{effects.viewCount}</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span className="opacity-50">📍</span>
+              <span>Spotify</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span className="opacity-50">👤</span>
+              <span>0</span>
+            </div>
+          </div>
           
           {/* Discord Status Widget */}
           {discord.showStatus && (
-            <div className="w-full mb-6">
+            <div className="w-full space-y-4">
               <DiscordStatus />
             </div>
           )}
           
           {/* Spotify Widget */}
           {spotify.enabled && spotify.embedUrl && (
-            <div className="w-full mb-6">
+            <div className="w-full mt-4">
               <SpotifyWidget />
-            </div>
-          )}
-          
-          {/* Social links */}
-          <div className="flex items-center gap-3 mb-8 flex-wrap justify-center">
-            {socialLinks.map((link, index) => {
-              const Icon = socialIconMap[link.platform];
-              return (
-                <SocialLink 
-                  key={index} 
-                  href={link.url} 
-                  icon={Icon as any} 
-                  label={link.platform.charAt(0).toUpperCase() + link.platform.slice(1)} 
-                />
-              );
-            })}
-          </div>
-          
-          {/* Custom links */}
-          <div className="w-full space-y-3">
-            {customLinks.map((link, index) => {
-              const Icon = linkIconMap[link.icon];
-              return (
-                <LinkButton 
-                  key={index} 
-                  href={link.url}
-                  title={link.title}
-                  description={link.description}
-                  icon={Icon}
-                />
-              );
-            })}
-          </div>
-          
-          {/* Views counter */}
-          {effects.showViews && (
-            <div className="mt-8 flex items-center gap-2 text-xs text-muted-foreground">
-              <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-              <span>{effects.viewCount.toLocaleString()} views</span>
             </div>
           )}
         </div>

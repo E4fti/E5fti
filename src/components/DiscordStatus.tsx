@@ -150,27 +150,52 @@ export const DiscordStatus = () => {
     <div className="w-full space-y-3">
       {/* Discord Status Card */}
       {showStatus && (
-        <div className="bg-card/30 backdrop-blur-sm border border-border/30 rounded-xl p-4 hover:border-glow-cyan/30 transition-colors">
+        <div className="bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl p-4 transition-colors">
           <div className="flex items-center gap-3">
             <div className="relative">
               <img
                 src={`https://cdn.discordapp.com/avatars/${discord_user.id}/${discord_user.avatar}.png?size=64`}
                 alt={discord_user.username}
-                className="w-10 h-10 rounded-full"
+                className="w-12 h-12 rounded-full border-2 border-white/20"
               />
-              <div className={`absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full border-2 border-card ${statusColors[discord_status]}`} />
+              <div className={`absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full border-2 border-black/40 ${statusColors[discord_status]}`} />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="font-medium text-foreground truncate">
-                {discord_user.global_name || discord_user.username}
-              </p>
-              <p className="text-xs text-muted-foreground">
-                {statusLabels[discord_status]}
-              </p>
+              <div className="flex items-center gap-2">
+                <p className="font-bold text-white text-lg">
+                  {discord_user.global_name || discord_user.username}
+                </p>
+                <div className="flex items-center gap-1 px-1.5 py-0.5 rounded bg-white/10 text-[10px] font-bold text-white/90">
+                  <span className="text-purple-400">💎</span> ACE_
+                </div>
+              </div>
             </div>
           </div>
         </div>
       )}
+
+      {/* Server Widget Mockup based on image */}
+      <div className="bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl p-4 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center font-bold text-xs text-center p-1 leading-tight">
+            BEYOND THE BANTERS
+          </div>
+          <div className="space-y-0.5">
+            <p className="font-bold text-white">BeyondTheBanters</p>
+            <div className="flex items-center gap-3 text-[10px] text-white/50">
+              <span className="flex items-center gap-1">
+                <div className="w-1.5 h-1.5 rounded-full bg-green-500" /> 1.4k Online
+              </span>
+              <span className="flex items-center gap-1">
+                <div className="w-1.5 h-1.5 rounded-full bg-white/30" /> 16.41k Members
+              </span>
+            </div>
+          </div>
+        </div>
+        <button className="px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-xs font-bold text-white transition-colors">
+          Join Server
+        </button>
+      </div>
 
       {/* Spotify Activity */}
       {showActivity && listening_to_spotify && spotify && (
