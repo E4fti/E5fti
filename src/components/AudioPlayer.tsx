@@ -15,11 +15,33 @@ const AudioPlayer = () => {
     if (audioRef.current) {
       audioRef.current.volume = volume;
       audioRef.current.muted = false;
-      if (audio.autoplay) {
-        audioRef.current.play().catch((err) => {
-          console.log("Autoplay blocked:", err);
-        });
-      }
+      
+      const playAudio = () => {
+        if (audioRef.current && audio.autoplay) {
+          audioRef.current.play().then(() => {
+            setIsPlaying(true);
+          }).catch((err) => {
+            console.log("Autoplay blocked:", err);
+          });
+        }
+      };
+
+      playAudio();
+
+      // Listen for first interaction to trigger play if blocked
+      const handleInteraction = () => {
+        playAudio();
+        window.removeEventListener('click', handleInteraction);
+        window.removeEventListener('touchstart', handleInteraction);
+      };
+
+      window.addEventListener('click', handleInteraction);
+      window.addEventListener('touchstart', handleInteraction);
+
+      return () => {
+        window.removeEventListener('click', handleInteraction);
+        window.removeEventListener('touchstart', handleInteraction);
+      };
     }
   }, [audio.autoplay, volume]);
 
